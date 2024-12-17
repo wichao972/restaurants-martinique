@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 des Restaurants en Martinique</title>
+    <style>
+        /* Styles existants... */
+        
+        .filters-section {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #3498db;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+        
+        .filter-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .filter-checkbox {
+            margin-right: 0.5rem;
+        }
+        
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .filter-tag {
+            background-color: #3498db;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-tag button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Les 10 Meilleurs Restaurants de Martinique</h1>
+        <p>Guide détaillé des meilleures adresses gastronomiques de l'île</p>
+    </div>
+    
+    <div class="container">
+        <div class="filters-section">
+            <input type="text" 
+                   id="searchInput" 
+                   class="search-bar" 
+                   placeholder="Rechercher un restaurant, une spécialité...">
+            
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <div class="filter-title">Type de cuisine</div>
+                    <div class="filter-options">
+                        <label>
+                            <input type="checkbox" class="filter-checkbox" data-filter-type="cuisine" value="Créole">
+                            Créole
+                        </label>
+                        <label>
+                            <input type="checkbox" class="filter-checkbox" data-filter-type="cuisine" value="Fruits de mer">
+                            Fruits de mer
+                        </label>
+                        <label>
+                            <input type="checkbox" class="filter-checkbox" data-filter-type="cuisine" value="Gastronomique">
+                            Gastronomique
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Zone</div>
+                    <div class="filter-options">
+                        <label>
+                            <input type="checkbox" class="filter-checkbox" data-filter-type="zone" value="Nord">
+                            Nord
+                        </label>
+                        <label>
+                            <input type="checkbox" class="filter-checkbox" data-filter-type="zone" value="Sud">
+                            Sud
+                        </label>
+                        <label>
+                            <input type="checkbox" class="filter-checkbox" data-filter-type="zone" value="Centre">
+                            Centre
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Prix</div>
+                    <div class="filter-options">
+                        <label>
+                            <input type="checkbox" class="filter-checkbox" data-filter-type="prix" value="€">
+                            € (< 20€)
+                        </label>
+                        <label>
+                            <input type="checkbox" class="filter-checkbox" data-filter-type="prix" value="€€">
+                            €€ (20-40€)
+                        </label>
+                        <label>
+                            <input type="checkbox" class="filter-checkbox" data-filter-type="prix" value="€€€">
+                            €€€ (> 40€)
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Autres filtres</div>
+                    <div class="filter-options">
+                        <label>
+                            <input type="checkbox" id="ouvertMaintenant">
+                            Ouvert maintenant
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="active-filters" id="activeFilters">
+                <!-- Les filtres actifs seront ajoutés ici dynamiquement -->
+            </div>
+        </div>
+        
+        <div id="restaurantsContainer">
+            <!-- Les restaurants filtrés seront affichés ici -->
+        </div>
+    </div>
+
+    <footer>
+        <p>Classement basé sur les avis Google Maps - Mis à jour en 2024</p>
+    </footer>
+    
+    <script src="js/filters.js"></script>
+</body>
+</html>
