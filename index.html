@@ -3,184 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top 10 des Restaurants en Martinique</title>
+    <title>Restaurants Martinique</title>
     <style>
-        /* Styles existants... */
-        
-        .filters-section {
+        :root {
+            --primary: #1a3c5a;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+        }
+
+        .header {
             background-color: white;
+            padding: 2rem 1rem;
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Section Filtres */
+        .filters-section {
+            background: white;
             padding: 1.5rem;
             border-radius: 8px;
             margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: var(--card-shadow);
         }
-        
+
         .search-bar {
             width: 100%;
             padding: 0.8rem;
-            border: 2px solid #3498db;
+            border: 1px solid var(--gray-300);
             border-radius: 4px;
-            font-size: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 16px;
         }
-        
+
         .filters-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
+            gap: 1.5rem;
+            grid-template-columns: repeat(1, 1fr);
         }
-        
+
+        @media (min-width: 640px) {
+            .filters-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .filters-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
         .filter-group {
-            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--gray-100);
+            border-radius: 4px;
         }
-        
+
         .filter-title {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
         }
-        
-        .filter-options {
+
+        .filter-options label {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem 0;
+            cursor: pointer;
             gap: 0.5rem;
         }
-        
-        .filter-checkbox {
-            margin-right: 0.5rem;
+
+        /* Restaurant Cards */
+        .restaurant-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--card-shadow);
         }
-        
-        .active-filters {
+
+        .restaurant-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .rating {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            color: #f59e0b;
+        }
+
+        .location {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section {
+            padding: 1rem;
+            background: var(--gray-100);
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+
+        .specialites {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
+            gap: 0.8rem;
         }
-        
-        .filter-tag {
-            background-color: #3498db;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+
+        .avis {
+            border-left: 3px solid var(--primary);
+            padding: 1rem;
+            background: var(--gray-100);
+            margin-bottom: 1.5rem;
         }
-        
-        .filter-tag button {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 0;
-            display: flex;
-            align-items: center;
+
+        .horaires-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.8rem 1.5rem;
         }
-        
-        .no-results {
-            text-align: center;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            margin-bottom: 2rem;
+
+        .jour {
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        .contact {
+            line-height: 1.8;
+        }
+
+        .contact a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .restaurant-card {
+                padding: 1rem;
+            }
+
+            .restaurant-name {
+                font-size: 1.3rem;
+            }
+
+            .horaires-grid {
+                gap: 0.5rem 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Les 10 Meilleurs Restaurants de Martinique</h1>
-        <p>Guide détaillé des meilleures adresses gastronomiques de l'île</p>
-    </div>
-    
-    <div class="container">
+    <header class="header">
+        <div class="container">
+            <h1>Les 10 Meilleurs Restaurants de Martinique</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Section Filtres -->
         <div class="filters-section">
             <input type="text" 
-                   id="searchInput" 
                    class="search-bar" 
-                   placeholder="Rechercher un restaurant, une spécialité...">
-            
+                   placeholder="Rechercher un restaurant...">
+
             <div class="filters-grid">
                 <div class="filter-group">
                     <div class="filter-title">Type de cuisine</div>
                     <div class="filter-options">
                         <label>
-                            <input type="checkbox" class="filter-checkbox" data-filter-type="cuisine" value="Créole">
+                            <input type="checkbox">
                             Créole
                         </label>
                         <label>
-                            <input type="checkbox" class="filter-checkbox" data-filter-type="cuisine" value="Fruits de mer">
+                            <input type="checkbox">
                             Fruits de mer
                         </label>
                         <label>
-                            <input type="checkbox" class="filter-checkbox" data-filter-type="cuisine" value="Gastronomique">
+                            <input type="checkbox">
                             Gastronomique
                         </label>
                     </div>
                 </div>
-                
+
                 <div class="filter-group">
                     <div class="filter-title">Zone</div>
                     <div class="filter-options">
                         <label>
-                            <input type="checkbox" class="filter-checkbox" data-filter-type="zone" value="Nord">
+                            <input type="checkbox">
                             Nord
                         </label>
                         <label>
-                            <input type="checkbox" class="filter-checkbox" data-filter-type="zone" value="Sud">
+                            <input type="checkbox">
                             Sud
                         </label>
                         <label>
-                            <input type="checkbox" class="filter-checkbox" data-filter-type="zone" value="Centre">
+                            <input type="checkbox">
                             Centre
                         </label>
                     </div>
                 </div>
-                
+
                 <div class="filter-group">
                     <div class="filter-title">Prix</div>
                     <div class="filter-options">
                         <label>
-                            <input type="checkbox" class="filter-checkbox" data-filter-type="prix" value="€">
+                            <input type="checkbox">
                             € (< 20€)
                         </label>
                         <label>
-                            <input type="checkbox" class="filter-checkbox" data-filter-type="prix" value="€€">
+                            <input type="checkbox">
                             €€ (20-40€)
                         </label>
                         <label>
-                            <input type="checkbox" class="filter-checkbox" data-filter-type="prix" value="€€€">
+                            <input type="checkbox">
                             €€€ (> 40€)
                         </label>
                     </div>
                 </div>
-                
+
                 <div class="filter-group">
-                    <div class="filter-title">Autres filtres</div>
+                    <div class="filter-title">Options</div>
                     <div class="filter-options">
                         <label>
-                            <input type="checkbox" id="ouvertMaintenant">
+                            <input type="checkbox">
                             Ouvert maintenant
                         </label>
                     </div>
                 </div>
             </div>
-            
-            <div class="active-filters" id="activeFilters">
-                <!-- Les filtres actifs seront ajoutés ici dynamiquement -->
-            </div>
         </div>
-        
-        <div id="restaurantsContainer">
-            <!-- Les restaurants filtrés seront affichés ici -->
-        </div>
-    </div>
 
-    <footer>
-        <p>Classement basé sur les avis Google Maps - Mis à jour en 2024</p>
-    </footer>
-    
-    <script src="js/filters.js"></script>
+        <!-- Restaurant Card Example -->
+        <article class="restaurant-card">
+            <h2 class="restaurant-name">La Kabananou</h2>
+            <div class="rating">
+                <span class="stars">★★★★★</span>
+                <span>4.7/5</span>
+            </div>
+            <div class="location">
+                📍 Anse désert, Sainte-Luce 97228, Martinique
+            </div>
+            <div class="section">
+                <div class="section-title">Spécialités</div>
+                <div class="specialites">
+                    Fruits de mer, Poisson frais, Langouste, Cuisine créole
+                </div>
+            </div>
+            <div class="avis">
+                <div class="section-title">Avis Google</div>
+                <p>"EPIC place - really fantastic food and a great vegetarian plate as well! Don't miss out on the lobster degustacion plate - it had everything, tuna ceviche, shrimp, a whole lobster, octopus, rice, lentils in coconut, sweet potato mash, fish fillet, salad and avocado!"</p>
+            </div>
+            <div class="section">
+                <div class="section-title">Horaires</div>
+                <div class="horaires-grid">
+                    <div class="jour">Lundi</div>
+                    <div>11h30 - 15h30</div>
+                    <div class="jour">Mardi</div>
+                    <div>11h30 - 15h30</div>
+                    <div class="jour">Mercredi</div>
+                    <div>Fermé</div>
+                    <div class="jour">Jeudi</div>
+                    <div>Fermé</div>
+                    <div class="jour">Vendredi</div>
+                    <div>11h30 - 15h30</div>
+                    <div class="jour">Samedi</div>
+                    <div>11h30 - 15h30</div>
+                    <div class="jour">Dimanche</div>
+                    <div>11h30 - 15h30</div>
+                </div>
+            </div>
+            <div class="contact">
+                <div class="section-title">Contact</div>
+                <p>📞 <a href="tel:0696383384">0696 38 33 84</a></p>
+            </div>
+        </article>
+    </main>
 </body>
 </html>
